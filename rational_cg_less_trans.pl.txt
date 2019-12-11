@@ -1,0 +1,50 @@
+
+
+ As the C of CG's are prone to mutation (e.g.,Hwang & Green; 2004, Proc Natl Acad Sci 101: 13994)
+ amino acids encoded by CG-affected codons could bias the outcome of the evolutionary analysis
+ of certain proteins especially if the CG's are no longer under purifying selection.
+
+ This consideration is particularly relevant to studies that address the evolution of proteins that
+ were encoded by distinct, but now long extinct families, of retrotransposons such as the L1 family
+ of non-LTR retrotransposons in mammals. These autonomously replicating elements are basically intragenomic
+ parasites and encode two proteins, which are essential for their replication. They have been evolving and
+ replicating in mammals for the last 80-120 Myr, and have littered the genome with many thousands of copies of
+ their fossilized remnants, which account for almost 20% of the genomic mass of many mammals.
+ 
+ Modern decendants of these families are still active in most present day species, and important clues to
+ the evolutionary dynamics and biochemical strategems that ensured their persistence reside in the relics
+ of now extince L1 families  
+
+ This script converts amino acids encoded by codon positions affected by CpG's, i.e., (CG.), (.CG) and (..C)(G..)
+ to the null amino acid character, "O", which is subsequently converted to missing data symbol "-" by most downstream
+ procedures or by sed, awk or any plain text editor. 
+
+ if the name of the input file, test_in.fst, the programs writes output to test-cg-null.fst
+ sed 's/O/-/g' test-cg-null.fst > test-cg-null.1.fst
+
+ Conversion to "O" is implemented by the subroutine, get_val which uses the CG-less codon hash
+
+	# "J" = null nucleotide character
+	# "-" (not ".") = gap
+	# "O" = null amino acid character
+
+	# seq = DNA coding sequence; orth = orthologue; cns = consensus; pep = peptide sequence; o_pep,
+	# peptide sequence which the null amino acid character, O, in place of the amino acids encoded
+	# by CG-affected codons
+
+ L1Pa6, name of an extinct L1 family the members of which were extracted the human genome data base
+
+ input files in fasta format			output files in fasta format
+ say for L1PA6:
+				# >l1pa6				>l1pa6
+				# cns_seq				cn_os_seq
+				# >6_orth_name_1		>6_orth_name_1
+				# pep_1					o_pep_1
+				# >6_orth_name_2		>6_orth_name_2
+				# pep_2					o_pep_2
+								
+ main program will then convert the positions in the orth pep sequences that correspond
+ to the CG-affected codons to the null amino acid symbol, i.e., "O", aa chars of the consensus to "O"
+
+if the name of the input file is test_in.fst, the output file is test-cg-null.fst
+the "O" can be changed to the missing data symbol "-" sed 's/O/-/g' test-cg-null.fst > test-cg-null.1.fst
